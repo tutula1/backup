@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cb_wholesale_sync_cb_res_partner,cb_wholesale_sync.cb_res_partner,model_cb_wholesale_sync_cb_res_partner,,1,1,1,0
+access_cb_wholesale_sync_cb_account_invoice,cb_wholesale_sync.cb_account_invoice,model_cb_wholesale_sync_cb_account_invoice,,1,1,1,0
+access_cb_wholesale_sync_cb_sale_order,cb_wholesale_sync.cb_sale_order,model_cb_wholesale_sync_cb_sale_order,,1,1,1,0
+access_cb_wholesale_sync_cb_delivery,cb_wholesale_sync.cb_delivery,model_cb_wholesale_sync_cb_delivery,,1,1,1,0

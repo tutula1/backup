@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="oss_rabbit_host" model="ir.config_parameter">
+            <field name="key">oss_rabbit_host</field>
+            <field name="value">210.245.124.188</field>
+        </record>
+        <record id="oss_rabbit_port" model="ir.config_parameter">
+            <field name="key">oss_rabbit_port</field>
+            <field name="value">5672</field>
+        </record>
+        <record id="oss_rabbit_username" model="ir.config_parameter">
+            <field name="key">oss_rabbit_username</field>
+            <field name="value">luong</field>
+        </record>
+        <record id="oss_rabbit_password" model="ir.config_parameter">
+            <field name="key">oss_rabbit_password</field>
+            <field name="value">1@3456</field>
+        </record>
+
+
+        <record id="oss_odoo_url" model="ir.config_parameter">
+            <field name="key">oss_odoo_url</field>
+            <field name="value">http://172.16.0.102</field>
+        </record>
+
+        <!-- OAuth2 tokens time to live: -->
+        <record id="oss_wholesale_protocol" model="ir.config_parameter">
+            <field name="key">oss_wholesale_protocol</field>
+            <field name="value">http://</field>
+        </record>
+        <record id="oss_wholesale_host" model="ir.config_parameter">
+            <field name="key">oss_wholesale_host</field>
+            <field name="value">172.16.0.132</field>
+        </record>
+        <record id="oss_wholesale_port" model="ir.config_parameter">
+            <field name="key">oss_wholesale_port</field>
+            <field name="value">80</field>
+        </record>
+        <record id="oss_wholesale_path" model="ir.config_parameter">
+            <field name="key">oss_wholesale_path</field>
+            <field name="value">/wholesaleapi</field>
+        </record>
+        <record id="oss_wholesale_url_get_token" model="ir.config_parameter">
+            <field name="key">oss_wholesale_url_get_token</field>
+            <field name="value">http://172.16.0.39/auth/oauth/token</field>
+        </record>
+        <record id="oss_wholesale_basic_auth" model="ir.config_parameter">
+            <field name="key">oss_basic_auth</field>
+            <field name="value">Basic b3NzX2FwaTplNjI3NmEwMS0xOWI0LTQ3MzEtYmE5MC02ZGFhZTJkYTkxZjQ=</field>
+        </record>
+        <record id="oss_wholesale_username" model="ir.config_parameter">
+            <field name="key">oss_username</field>
+            <field name="value">oss_api</field>
+        </record>
+        <record id="oss_wholesale_grant_type" model="ir.config_parameter">
+            <field name="key">oss_grant_type</field>
+            <field name="value">password</field>
+        </record>
+        <record id="oss_wholesale_password" model="ir.config_parameter">
+            <field name="key">oss_password</field>
+            <field name="value">chau.le</field>
+        </record>
+        <record id="default_type_code" model="ir.config_parameter">
+            <field name="key">default_type_code</field>
+            <field name="value">31</field>
+        </record>
+    </data>
+</openerp>

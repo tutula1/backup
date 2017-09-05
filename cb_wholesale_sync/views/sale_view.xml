@@ -1,0 +1,27 @@
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="sync_order_form">
+      <field name="name">sale.order.sync.form</field>
+      <field name="model">sale.order.sync</field>
+      <field name="arch" type="xml">
+        <form string="Sync">
+          Are you sure?
+          <footer>
+            <button name="sync" type="object" string="Sync" class="btn-primary"/>
+            <button name="create_so" type="object" string="Sync" class="btn-primary"/>
+            <button string="Cancel" class="btn-default" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="sync_order_act">
+      <field name="name">Sync</field>
+      <field name="res_model">sale.order.sync</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="sync_order_form"/>
+      <field name="target">new</field>
+    </record>
+    <act_window id="action_sync_order" multi="True" key2="client_action_multi" name="Sync" res_model="sale.order.sync" src_model="sale.order" view_mode="form" target="new" view_type="form"/>
+  </data>
+</openerp>
