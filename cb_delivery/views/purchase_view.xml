@@ -1,0 +1,66 @@
+<openerp>
+  <data>
+    <record id="cb_purchase_order_form" model="ir.ui.view">
+      <field name="name">cb.purchase.order.form</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='date_order']" position="before">
+              <field name='stock_tranfer_date'  attrs ="{'readonly': [['state', 'in', ['purchase','done','cancel']]]}"/>
+          </xpath>
+          <xpath expr="//field[@name='payment_term_id']" position="replace" />
+          <xpath expr="//field[@name='date_order']" position="after">
+             <field name="payment_term_id" options="{'no_create': True}" attrs ="{'readonly': [['state', 'in', ['purchase','done', 'cancel']]]}"/>
+          </xpath>
+          
+          <xpath expr="//field[@name='picking_type_id']" position="replace" />
+          <xpath expr="//field[@name='partner_ref']" position="after">
+            <field name="picking_type_id" domain="[('code','=','incoming')]" options="{'no_create': True}" groups="stock.group_stock_multi_locations" />
+          	<field name="buyer" options="{'no_create': True}" attrs ="{'readonly': [['state', 'in', ['purchase','done', 'cancel']]]}"/>
+          </xpath>
+
+          <xpath expr="//field[@name='partner_ref']" position="attributes">
+              <attribute name="attrs">
+                  {'readonly': [['state', 'in', ['purchase','done','cancel']]]}
+              </attribute>
+          </xpath>
+      </field>
+  </record>
+  <record id="cb_purchase_order_true" model="ir.ui.view">
+      <field name="name">cb.purchase.order.true</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='state']" position="before">
+              <field name='delivery_status'/>
+          </xpath>
+      </field>
+  </record>
+
+  <record id="cb_purchase_apply_discount" model="ir.ui.view">
+      <field name="name">cb.purchase.apply.discount</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="bi_sale_purchase_invoice_discount.view_purchase_discount_form"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='apply_discount']" position="attributes">
+              <attribute name="attrs">
+              {'readonly': [['state', 'in', ['done','purchase','cancel']]]}
+          </attribute>
+          </xpath>
+      </field>
+  </record>
+
+  <record id="cb_purchase_order_category_form" model="ir.ui.view">
+      <field name="name">cb.purchase.order.category.form</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="cb_pendingso.purchase_order_form_inherit"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='category_id']" position="attributes">
+              <attribute name="attrs">
+              {'readonly': [['state', 'in', ['done','purchase','cancel']]]}
+          </attribute>
+          </xpath>
+      </field>
+  </record>
+</data>
+</openerp>

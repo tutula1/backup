@@ -8,7 +8,7 @@
           Are you sure?
           <footer>
             <button name="sync" type="object" string="Sync" class="btn-primary"/>
-            <button name="create_so" type="object" string="Sync" class="btn-primary"/>
+            <button name="create_so" type="object" string="Create" class="btn-primary"/>
             <button string="Cancel" class="btn-default" special="cancel"/>
           </footer>
         </form>

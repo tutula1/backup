@@ -95,7 +95,7 @@ class StockPicking(models.Model):
                         "id": pick.id,
                         "postage_delivery_fee": pick.postage_delivery_fee,
                         "amount_untaxed": pick.amount_untaxed,
-                        "stock_tranfer_date": str(pick.stock_tranfer_date).replace('-', '/') if pick.stock_tranfer_date != False else '',
+                        "stock_tranfer_date": str(self.env['authentication.queue.job'].convertDateTime(pick.stock_tranfer_date)).replace('-', '/') if pick.stock_tranfer_date != False else '',
                         "location_id": {
                             "id": pick.location_id.id,
                             "name": pick.location_id.complete_name
@@ -125,7 +125,8 @@ class StockPicking(models.Model):
                         },
                         "name": pick.name,
                         "total_way": pick.total_way,
-                        "stock_outin_date": str(pick.stock_outin_date).replace('-', '/') if pick.stock_outin_date != False else '',
+                        "stock_outin_date": str(self.env['authentication.queue.job'].convertDateTime(pick.stock_outin_date)).replace('-', '/') if pick.stock_outin_date != False else '',
+                        "stock_live_date": str(self.env['authentication.queue.job'].convertDateTime(pick.stock_live_date)).replace('-', '/') if pick.stock_live_date != False else '',
                         "forecast_time": pick.forecast_time if pick.forecast_time != False else '',
                         "customer_type": pick.customer_type if pick.customer_type != False else '',
                         "location_dest_id": {

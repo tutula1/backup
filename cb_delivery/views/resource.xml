@@ -1,0 +1,10 @@
+<openerp>
+    <data>
+	<!-- Adds all assets in Odoo -->
+        <template id="cb_delivery_assets_backend" name="cb_delivery assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+		        <link rel="stylesheet" href="/cb_delivery/static/src/css/delivery.css"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

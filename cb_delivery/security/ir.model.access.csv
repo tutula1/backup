@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cb_delivery_address,cb.delivery.address,cb_delivery.model_cb_delivery_address,,1,1,1,1
+access_cb_delivery_address_info,cb.delivery.address.info,cb_delivery.model_cb_delivery_address_info,,1,1,1,1
+access_cb_source_sale,cb.source.sale,cb_delivery.model_cb_source_sale,,1,1,1,1

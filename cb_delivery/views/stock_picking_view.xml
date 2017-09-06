@@ -1,0 +1,245 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="cb_delivery_view_picking_form">
+            <field name="name">cb.delivery.stock.picking</field>
+            <!-- d4 change inherit_id from stock.view_picking_form to delivery.view_picking_withcarrier_out_form -->
+            <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+            <field name="model">stock.picking</field>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="update_total" string="Update Total" type="object"/>
+                </xpath> 
+                <!-- d4 add 17:00 13/03 -->
+                <xpath expr="//field[@name='number_of_packages']"  position="replace"/>
+                <xpath expr="//field[@name='carrier_tracking_ref']" position="replace" />
+                <xpath expr="//label[@for='carrier_tracking_ref']" position="replace" />
+                <!-- end add -->
+                <xpath expr="//page[@name='extra']" position="after">
+                    <page string="Delivery info">
+                        <group>
+                            <group string="Thông tin giao hàng">
+                                <field name="start_point" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}" options="{'no_quick_create': True }"/>
+                                <field name="end_point" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}" options="{'no_quick_create': True }"/>
+                                <field name="delivery_service" widget="radio" options="{'horizontal': true}" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                                <field name="collaborators" domain="[('delivery_service', '=', 'internal')]" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}" options="{'no_create': True}"/>
+                                <field name="delivery_status" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                                <!-- d4 add 17:00 13/03 -->
+                                <field name="number_of_packages" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                                <!-- <field name="delivery_fee"/> -->
+                                <label for="carrier_tracking_ref"/>
+                                <div name="tracking">
+                                    <field name="carrier_tracking_ref" class="oe_inline" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                                    <button type='object' class="fa fa-arrow-right oe_link" name="cancel_shipment" string="Cancel" attrs="{'invisible':['|','|','|',('carrier_tracking_ref','=',False),('delivery_type','in', ['fixed', 'base_on_rule']),('delivery_type','=',False),('state','not in',('delivery_success'))]}"/>
+                                </div>
+                            </group>
+                            
+                            <group>
+                                <field name="source_way" readonly="1"/>
+                                <field name="destination_way" readonly="1"/>
+                                <field name="total_way" readonly="1"/>
+                                <field name="forecast_time" readonly="1"/>
+                                <label for="start_time" string="Thời gian BĐ/KT"/>
+                                <div class="o_address_format">
+                                    <field name="start_time" class="o_address_zip" placeholder="Thời gian bắt đầu" widget="float_time" width="8%" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                                    /
+                                    <field name="end_time" class="o_address_zip" placeholder="Thời gian kết thúc" widget="float_time" width="8%" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                                </div>
+                                <field name="duration_time" readonly="1"/>
+                                <field name="google_map" readonly="1" widget="url"/>
+                                
+                            </group>
+                            <group string="Cước phí">
+                              <field name="postage_delivery" attrs="{'readonly':['|', ('delivery_service','not in',('internal', 'partner')), ('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                              <field name="postage_delivery_fee" attrs="{'readonly': [('state', 'in', ['delivery_success', 'delivery_fail'])]}"/>
+                              <field name="postage_total" readonly="1" class="postage_total"/>
+                          </group>
+                          <group string="">
+                            <field name="note_stock_picking" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='min_date']" position="before">
+                <field name="stock_tranfer_date" readonly="1"/>
+                <field name="stock_live_date" attrs ="{'readonly': [['state', 'in', ['delivery_success']]]}"/>
+                <field name='stock_outin_date' attrs ="{'readonly': [['state', 'in', ['done','delivery_success','delivery_fail']]]}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="attrs">
+                    {
+                    'readonly':
+                    [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]
+                    }
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='min_date']" position="attributes">
+                <attribute name="attrs">
+                    {
+                    'readonly':
+                    [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]
+                    }
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='location_id']" position="attributes">
+                <attribute name="attrs">
+                    {
+                    'readonly':
+                    [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]
+                    }
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='location_dest_id']" position="attributes">
+                <attribute name="attrs">
+                    {
+                    'readonly':
+                    [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]
+                    }
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='move_type']"  position="replace"/>
+            <xpath expr="//field[@name='picking_type_id']" position="replace" />
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="move_type"/>
+                <field name="picking_type_id" options="{'no_create': True}"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='move_type']" position="attributes">
+                <attribute name="attrs">
+                    {
+                    'readonly':
+                    [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]
+                    }
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='picking_type_id']" position="attributes">
+                <attribute name="attrs">
+                    {
+                    'readonly':
+                    [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]
+                    }
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="cb_vpicktree" model="ir.ui.view">
+        <field name="name">stock.picking.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='backorder_id']" position="before">
+                <field name="delivery_service"/>
+                <field name="collaborators" options="{'no_create': True}"/>
+                <field name="total_way"/>
+                <field name="postage_total"/>
+                <field name="stock_tranfer_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cb_delivery_view_unit_stock_price_pack_operation_form">
+        <field name="name">cb.delivery.pack.operation</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='note']" position="before">
+                <p><label for="note"></label></p>
+            </xpath>
+            <xpath expr="//field[@name='note']" position="after">
+                <p><label for="internal_note"></label></p>
+                <field name='internal_note' class="oe_inline"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name='carrier_id' string="Loại thanh toán" attrs="{'readonly': [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]}"/>
+            </xpath>
+            <xpath expr="//field[@name='carrier_id']" position="after">
+                <field name='payment_term_id' attrs="{'readonly': [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]}"/>
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name='product_unit_price' widget='monetary' options="{'currency_field': 'currency_id'}" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name='customer_reference' attrs="{'readonly': [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]}"/>
+                <field name='customer_type' readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='move_lines']" position="after">
+                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                    <field name='apply_discount' invisible="1"/>
+                    <field name='discount_tmp' invisible="1"/>
+                    <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                        <label for="total_cost" />
+                    </div>
+                    <field name="total_cost" widget='monetary' nolabel="1" class="oe_subtotal_footer_separator" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                    <field name="discount_type_id" attrs="{'invisible': [('apply_discount', '=', False)]}" readonly="1"/>
+                    <field name="discount_value" attrs="{'invisible': [('apply_discount', '=', False)]}" readonly="1"/>
+                    <field name="amount_after_discount" style="font-size:17px;font-weight:bold" attrs="{'invisible': [('apply_discount', '=', False)]}" readonly="1"/>
+                    <field name="delivery_cost" widget='monetary' options="{'currency_field': 'currency_id'}" readonly="1"/>
+                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                        <label for="amount_total" />
+                        <button name="button_dummy"
+                            states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                        </div>
+                        <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='move_lines']" position="attributes">
+                    <attribute name="attrs">
+                      {'readonly': [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]}
+                  </attribute>
+              </xpath>
+          </field>
+      </record>
+
+      <record model="ir.ui.view" id="cb_delivery_move_picking_tree">
+        <field name="name">cb.move_picking_tree</field>
+        <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name='discount' readonly="1"/>
+                <field name='discount_type' readonly="1"/>
+                <field name='price_tax' readonly="1"/>
+                <field name='price_total' readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="context">{'category_id': parent.category_id, 'picking_type_id': parent.picking_type_id, 'search_default_categ_id': parent.category_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='product_uom']" position="attributes">
+               <attribute name="readonly">1</attribute>
+               <attribute name="options">{'no_create': True}</attribute>
+           </xpath>
+       </field>
+   </record>
+
+   <record model="ir.ui.view" id="cb_delivery_view_customer_reference_search">
+    <field name="name">cb.delivery.customer.reference</field>
+    <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+    <field name="model">stock.picking</field>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="customer_reference" filter_domain="[('customer_reference','ilike',self)]"/>
+        </xpath>
+    </field>
+</record>
+
+<record model="ir.ui.view" id="cb_delivery_stock_view_picking_form">
+    <field name="name">cb.delivery.stock.view.picking.form</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="model">stock.picking</field>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='product_uom_id']" position="attributes">
+            <attribute name="readonly">1</attribute>
+            <attribute name="options">{'no_create': True}</attribute>
+        </xpath>
+        <xpath expr="//field[@name='pack_operation_product_ids']" position="attributes">
+            <attribute name="attrs">
+              {'readonly': [('state', 'in', ('done', 'delivery_success', 'delivery_fail'))]}
+          </attribute>
+      </xpath>
+  </field>
+</record>
+</data>
+</openerp>

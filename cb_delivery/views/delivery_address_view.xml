@@ -1,0 +1,42 @@
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="cb_delivery_address_form_view">
+            <field name="name">cb.delivery.address.form</field>
+            <field name="model">cb.delivery.address</field>
+            <field name="arch" type="xml">
+                 <form string="Delivery address">
+                    <sheet>
+                        <group>
+                           
+                            <field name="name" string="Address" attr="{'required':True}" />
+                            <field name="lat" placeholder="Không nhập ht sẽ tự tính bằng địa chỉ" />
+                            <field name="lng" placeholder="Không nhập ht sẽ tự tính bằng địa chỉ" />
+                           <field name='auto_select_start_point'/>
+                        </group>
+                    </sheet>
+                 </form>
+            </field>
+        </record>
+            
+        <record model='ir.ui.view' id='cb_delivery_address_tree_view'>
+            <field name='name'>cb.delivery.address.tree</field>
+            <field name='model'>cb.delivery.address</field>
+            <field name='arch' type='xml'>
+                <tree string='Delivery address'>
+                    <field name="name" string="Address" attr="{'required':True}" />
+                    <field name="lat" placeholder="Không nhập ht sẽ tự tính bằng địa chỉ" />
+                    <field name="lng" placeholder="Không nhập ht sẽ tự tính bằng địa chỉ" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cb_delivery_address_list_action">
+            <field name="name">Delivery address</field>
+            <field name="res_model">cb.delivery.address</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name='context'>{}</field>
+            <field name="domain">[]</field>
+        </record>
+    </data>
+</openerp>

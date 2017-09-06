@@ -1,0 +1,7 @@
+.o_form_field_number.postage_total{
+	font-size: 16px;
+    color: red;
+    border-top: solid 1px #717171;
+    width: 100% !important;
+    font-weight: bold;
+}
